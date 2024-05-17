@@ -1,0 +1,39 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: test-task
+  annotations:
+    pipelinesascode.tekton.dev/state: started
+    pipelinesascode.tekton.dev/repo-url: 'https://github.com/redhat-appstudio/integration-service'
+    pipelinesascode.tekton.dev/sha-title: 'chore(go): bump github.com/onsi/ginkgo/v2 from 2.17.2 to 2.17.3'
+    results.tekton.dev/recordSummaryAnnotations: '{"repo":"integration-service","commit":"c329b24c30d04c43e981dd05e94a992048dbfda0","eventType":"push"}'
+    pipelinesascode.tekton.dev/sender: dirgim
+    pipelinesascode.tekton.dev/git-auth-secret: pac-gitauth-dtwi
+    build.appstudio.openshift.io/repo: 'https://github.com/redhat-appstudio/integration-service?rev=c329b24c30d04c43e981dd05e94a992048dbfda0'
+    pipelinesascode.tekton.dev/controller-info: '{"name":"default","configmap":"pipelines-as-code","secret":"pipelines-as-code-secret"}'
+    pipelinesascode.tekton.dev/check-run-id: '24811944430'
+    pipelinesascode.tekton.dev/branch: main
+    pipelinesascode.tekton.dev/log-url: 'https://console.redhat.com/preview/application-pipeline/ns/rhtap-integration-tenant/pipelinerun/integration-service-on-push-knbmv'
+    build.appstudio.redhat.com/target_branch: main
+    pipelinesascode.tekton.dev/url-org: redhat-appstudio
+    pipelinesascode.tekton.dev/max-keep-runs: '3'
+    pipelinesascode.tekton.dev/original-prname: integration-service-on-push
+    pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch == "main"
+    pipelinesascode.tekton.dev/url-repository: integration-service
+    pipelinesascode.tekton.dev/repository: integration-service
+    pipelinesascode.tekton.dev/sha: c329b24c30d04c43e981dd05e94a992048dbfda0
+    pipelinesascode.tekton.dev/sha-url: 'https://github.com/redhat-appstudio/integration-service/commit/c329b24c30d04c43e981dd05e94a992048dbfda0'
+    pipelinesascode.tekton.dev/git-provider: github
+    pipelinesascode.tekton.dev/installation-id: '34482443'
+    pipelinesascode.tekton.dev/event-type: push
+    build.appstudio.redhat.com/commit_sha: c329b24c30d04c43e981dd05e94a992048dbfda0
+spec:
+  steps:
+    - image: registry.access.redhat.com/ubi9/ubi-minimal:9.3-1612@sha256:119ac25920c8bb50c8b5fd75dcbca369bf7d1f702b82f3d39663307890f0bf26
+      env:
+        - name: Sender
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.annotations['pipelinesascode.tekton.dev/sender']
+      script: |
+        echo $Sender
